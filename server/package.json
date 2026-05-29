@@ -1,0 +1,28 @@
+{
+  "name": "ticker",
+  "version": "1.0.0",
+  "description": "An app that logs work and time",
+  "homepage": "https://github.com/HemantSharma13/Ticker#readme",
+  "bugs": {
+    "url": "https://github.com/HemantSharma13/Ticker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HemantSharma13/Ticker.git"
+  },
+  "license": "ISC",
+  "author": "Hemant Sharma",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "mongoose": "^9.6.3"
+  }
+}
