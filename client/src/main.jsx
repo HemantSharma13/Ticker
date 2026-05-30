@@ -14,6 +14,23 @@ const router = createBrowserRouter([
     path: "/",
     element: <LandingPage />,
   },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+
+  {
+    path: "/app",
+    element: <Dashboard />,
+  },
+  {
+    path: "/summary",
+    element: <SummaryLayout />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
