@@ -3,3 +3,19 @@
   --text-secondary: "Shanti", sans-serif;
   --text-tartiary: "Hind Madurai", sans-serif;
 }
+
+body {
+  font-family: var(--text-primary);
+  background: #f8fafc;
+  color: #111827;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
