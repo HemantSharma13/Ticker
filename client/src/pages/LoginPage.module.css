@@ -95,9 +95,11 @@
 }
 
 .inputGroup {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-bottom: 5px;
 }
 
 .inputGroup label {
@@ -133,6 +135,14 @@
 .options a {
   color: #7c3aed;
   text-decoration: none;
+}
+
+.errorMessage {
+  position: absolute;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: red;
+  bottom: -15px;
 }
 
 .loginBtn {

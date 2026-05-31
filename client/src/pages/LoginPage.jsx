@@ -64,7 +64,9 @@ function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               {email && !emailIsValid && (
-                <p>Please enter a valid email address.</p>
+                <p className={styles.errorMessage}>
+                  Please enter a valid email address.
+                </p>
               )}
             </div>
 
@@ -79,7 +81,9 @@ function LoginPage() {
                 placeholder="••••••••"
               />
               {password && !passwordIsValid && (
-                <p>Password must be longer than 10 characters.</p>
+                <p className={styles.errorMessage}>
+                  Password must be longer than 10 characters.
+                </p>
               )}
             </div>
 
