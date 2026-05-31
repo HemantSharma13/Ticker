@@ -155,8 +155,23 @@
 
 .loginBtn:hover {
   transform: translateY(-2px);
-
   box-shadow: 0 15px 30px rgba(124, 58, 237, 0.3);
+}
+
+.loginBtn:active {
+  transform: translateY(0);
+}
+
+.loginBtn:disabled {
+  background-color: #a2a2a2;
+  background-image: none;
+  cursor: not-allowed;
+}
+
+.loginBtn:disabled:hover,
+.loginBtn:disabled:active {
+  transform: none;
+  box-shadow: none;
 }
 
 .signup {
