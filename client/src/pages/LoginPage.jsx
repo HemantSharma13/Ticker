@@ -1,8 +1,15 @@
 import styles from "./LoginPage.module.css";
 import { Link } from "react-router";
+import { useState } from "react";
 
 function LoginPage() {
-  function LoginHandler(e) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const passwordIsValid = password.length > 10;
+
+  function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
@@ -45,31 +52,42 @@ function LoginPage() {
 
           <p>Sign in to continue to your workspace.</p>
 
-          <form className={styles.form} onSubmit={LoginHandler}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            {/*Field Email */}
             <div className={styles.inputGroup}>
-              <label>Email</label>
+              <label id="email">Email</label>
               <input
                 type="email"
                 name="email"
                 placeholder="Enter your email id here"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
+              {email && !emailIsValid && (
+                <p>Please enter a valid email address.</p>
+              )}
             </div>
 
+            {/*Field Password */}
             <div className={styles.inputGroup}>
-              <label>Password</label>
-              <input type="password" name="password" placeholder="••••••••" />
+              <label id="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+              />
+              {password && !passwordIsValid && (
+                <p>Password must be longer than 10 characters.</p>
+              )}
             </div>
 
-            <div className={styles.options}>
-              <label>
-                <input type="checkbox" />
-                Remember me
-              </label>
-
-              <a href="/">Forgot Password?</a>
-            </div>
-
-            <button type="submit" className={styles.loginBtn}>
+            <button
+              type="submit"
+              className={styles.loginBtn}
+              disabled={!emailIsValid || !passwordIsValid}
+            >
               Sign In
             </button>
           </form>
