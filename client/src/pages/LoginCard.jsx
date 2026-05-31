@@ -1,31 +1,61 @@
-import styles from "./LoginPage.module.css";
+import styles from "./LoginCard.module.css";
 import { Link, Outlet } from "react-router";
 import { useState } from "react";
 
 export default function LoginCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false); //to allow error message after submit
+  const [submittedOnce, setSubmittedOnce] = useState(false); //to allow error message after submit
+  const [message, setMessage] = useState();
 
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const passwordIsValid = password.length > 10;
 
+  function displayMessage(status, message) {
+    if (status === "success") {
+      setMassage({
+        status: "success",
+        text: message,
+      });
+    } else {
+      setMassage({
+        status: "fail",
+        text: message,
+      });
+    }
+    setTimeout(() => {
+      setMessage(null);
+    }, 3000);
+  }
+
   function handleSubmit(e) {
     e.preventDefault(); //to prevent default behavior
-    setSubmitted(true);
+    setSubmittedOnce(true);
+
     if (!emailIsValid || !passwordIsValid) {
+      displayMessage("fail", "Incorrect email or password!!");
       return;
     }
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     console.log(data);
   }
+
   return (
     <section className={styles.right}>
       <div className={styles.card}>
         <h2>Welcome Back 👋</h2>
 
         <p>Sign in to continue to your workspace.</p>
+
+        {message && (
+          <div
+            className={`${styles.loginStatusMessage} ${message.status === "success" ? styles.loginSuccessStyle : styles.loginFailStyle}`}
+          >
+            {message.text}
+          </div>
+        )}
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
           {/*Field Email */}
@@ -38,7 +68,7 @@ export default function LoginCard() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {submitted && !emailIsValid && (
+            {submittedOnce && !emailIsValid && (
               <p className={styles.errorMessage}>
                 Please enter a valid email address.
               </p>
@@ -55,7 +85,7 @@ export default function LoginCard() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
             />
-            {submitted && !passwordIsValid && (
+            {submittedOnce && !passwordIsValid && (
               <p className={styles.errorMessage}>
                 Password must be longer than 10 characters.
               </p>
@@ -65,7 +95,7 @@ export default function LoginCard() {
           <button
             type="submit"
             className={styles.loginBtn}
-            disabled={submitted ? !emailIsValid || !passwordIsValid : false}
+            disabled={submittedOnce ? !emailIsValid || !passwordIsValid : false}
           >
             Sign In
           </button>

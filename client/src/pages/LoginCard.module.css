@@ -17,7 +17,6 @@
 .card {
   width: 100%;
   max-width: 420px;
-
   padding: 2.5rem;
 
   background: white;
@@ -97,6 +96,24 @@
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
+}
+
+.card .loginStatusMessage {
+  position: absolute;
+  background-color: rgba(144, 238, 144, 50%);
+  top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.card .loginSuccessStyle {
+  background-color: rgba(144, 238, 144, 50%);
+}
+
+.card .loginFailStyle {
+  background-color: rgba(255, 192, 203, 50%);
 }
 
 .loginBtn:hover {
