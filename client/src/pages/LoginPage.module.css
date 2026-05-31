@@ -1,0 +1,207 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 500px;
+  background: #faf9ff;
+}
+
+/* LEFT */
+
+.left {
+  display: flex;
+  align-items: center;
+  padding: 5rem;
+  background: radial-gradient(
+    circle at top left,
+    rgba(124, 58, 237, 0.15),
+    transparent 40%
+  );
+}
+
+.brand {
+  max-width: 600px;
+}
+
+.brand h1 {
+  color: #7c3aed;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.brand h2 {
+  font-size: 4rem;
+  line-height: 1.1;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.brand p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  line-height: 1.8;
+}
+
+.stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.stats h3 {
+  color: #7c3aed;
+  font-size: 2rem;
+}
+
+.stats span {
+  color: #6b7280;
+}
+
+/* RIGHT */
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+
+  padding: 2.5rem;
+
+  background: white;
+
+  border-radius: 28px;
+
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.card > p {
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.inputGroup input {
+  padding: 1rem;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  outline: none;
+
+  transition: all 0.25s ease;
+}
+
+.inputGroup input:focus {
+  border-color: #7c3aed;
+
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.9rem;
+}
+
+.options a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.loginBtn {
+  padding: 1rem;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+
+  color: white;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.loginBtn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 15px 30px rgba(124, 58, 237, 0.3);
+}
+
+.googleBtn {
+  padding: 1rem;
+
+  border-radius: 12px;
+
+  background: white;
+
+  border: 1px solid #e5e7eb;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: all 0.25s ease;
+}
+
+.googleBtn:hover {
+  background: #f8fafc;
+}
+
+.signup {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.signup a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .left {
+    display: none;
+  }
+
+  .right {
+    padding: 1rem;
+  }
+}
