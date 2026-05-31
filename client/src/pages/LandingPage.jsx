@@ -13,7 +13,7 @@ function LandingPage() {
           <a href="#pricing">Pricing</a>
           <a href="#about">About</a>
         </nav>
-        <Link to="/login">
+        <Link to="/auth">
           <button className={styles.loginBtn}>Login</button>
         </Link>
       </header>

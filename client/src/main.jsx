@@ -1,13 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import "./index.css";
 import LandingPage from "./pages/LandingPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
+import LoginCard from "./pages/LoginCard.jsx";
 import Dashboard from "./pages/DashboardLayout.jsx";
 import SummaryLayout from "./pages/SummaryLayout.jsx";
-import SignupPage from "./pages/SignupPage.jsx";
+import SignupCard from "./pages/SignupCard.jsx";
+import AuthLayout from "./pages/AuthLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,12 +16,22 @@ const router = createBrowserRouter([
     element: <LandingPage />,
   },
   {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/signup",
-    element: <SignupPage />,
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="login" replace />,
+      },
+      {
+        path: "login",
+        element: <LoginCard />,
+      },
+      {
+        path: "signup",
+        element: <SignupCard />,
+      },
+    ],
   },
 
   {
