@@ -7,7 +7,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import Dashboard from "./pages/DashboardLayout.jsx";
 import SummaryLayout from "./pages/SummaryLayout.jsx";
-import SignUp from "./pages/SignUpPage.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <SignUp />,
+    element: <SignupPage />,
   },
 
   {

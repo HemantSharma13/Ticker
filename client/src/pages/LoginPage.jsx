@@ -1,4 +1,5 @@
 import styles from "./LoginPage.module.css";
+import { Link } from "react-router";
 
 function LoginPage() {
   return (
@@ -61,14 +62,10 @@ function LoginPage() {
             <button type="submit" className={styles.loginBtn}>
               Sign In
             </button>
-
-            <button type="button" className={styles.googleBtn}>
-              Continue with Google
-            </button>
           </form>
 
           <p className={styles.signup}>
-            Don't have an account? <a href="/">Create one</a>
+            Don't have an account? <Link to="/signup">Create One</Link>
           </p>
         </div>
       </section>

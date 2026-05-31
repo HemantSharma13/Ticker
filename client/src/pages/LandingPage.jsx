@@ -1,4 +1,5 @@
 import styles from "./LandingPage.module.css";
+import { Link } from "react-router";
 
 function LandingPage() {
   return (
@@ -12,8 +13,9 @@ function LandingPage() {
           <a href="#pricing">Pricing</a>
           <a href="#about">About</a>
         </nav>
-
-        <button className={styles.loginBtn}>Login</button>
+        <Link to="/login">
+          <button className={styles.loginBtn}>Login</button>
+        </Link>
       </header>
 
       {/* Hero Section */}

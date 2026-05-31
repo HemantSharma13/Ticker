@@ -159,26 +159,6 @@
   box-shadow: 0 15px 30px rgba(124, 58, 237, 0.3);
 }
 
-.googleBtn {
-  padding: 1rem;
-
-  border-radius: 12px;
-
-  background: white;
-
-  border: 1px solid #e5e7eb;
-
-  cursor: pointer;
-
-  font-weight: 600;
-
-  transition: all 0.25s ease;
-}
-
-.googleBtn:hover {
-  background: #f8fafc;
-}
-
 .signup {
   text-align: center;
   margin-top: 1.5rem;
