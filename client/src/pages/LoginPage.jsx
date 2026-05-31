@@ -2,6 +2,12 @@ import styles from "./LoginPage.module.css";
 import { Link } from "react-router";
 
 function LoginPage() {
+  function LoginHandler(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+  }
   return (
     <main className={styles.page}>
       <section className={styles.left}>
@@ -39,15 +45,19 @@ function LoginPage() {
 
           <p>Sign in to continue to your workspace.</p>
 
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={LoginHandler}>
             <div className={styles.inputGroup}>
               <label>Email</label>
-              <input type="email" placeholder="you@example.com" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email id here"
+              />
             </div>
 
             <div className={styles.inputGroup}>
               <label>Password</label>
-              <input type="password" placeholder="••••••••" />
+              <input type="password" name="password" placeholder="••••••••" />
             </div>
 
             <div className={styles.options}>
