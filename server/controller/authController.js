@@ -2,6 +2,7 @@
 
 import User from "../model/userModel.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -11,17 +12,19 @@ const signToken = (id) => {
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
-  console.log("the Token is:", token);
+
   res.cookie("jwt", token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
+    httpOnly: true,
   });
+
+  return token;
 };
 
 export const signup = async (req, res) => {
   try {
-    console.log("req body in signup is", req.body);
     const { name, email, password, confirm_password } = req.body;
 
     // Check for empty fields
@@ -50,15 +53,18 @@ export const signup = async (req, res) => {
       });
     }
 
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, process.env.SALE_ROUNDS);
+
     // Create user
     const user = await User.create({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
-    // Generating JWT Token and directly Logging In
-    createSendToken(user, 200, req, res);
+    //Create JWT
+    const token = createSendToken(user, 201, req, res);
 
     res.status(201).json({
       success: true,
@@ -67,8 +73,8 @@ export const signup = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        token: "",
       },
+      token,
     });
   } catch (error) {
     console.error(error);
