@@ -3,7 +3,7 @@ import { configDotenv } from "dotenv";
 import mongoose from "mongoose";
 
 configDotenv({ path: "./config.env" }); //configuring dotenv
-console.log("The port is", process.env.PORT);
+console.log("The port is", process.env.SERVER_PORT_NUMBER);
 const port = process.env.SERVER_PORT_NUMBER || 3000;
 
 mongoose
