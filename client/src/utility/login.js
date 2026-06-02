@@ -1,6 +1,7 @@
-async function login(email, password) {
+export default async function login(email, password) {
   try {
-    const response = await fetch("http://localhost:5000/api/login", {
+    console.log(import.meta.env.VITE_API_URL);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +18,7 @@ async function login(email, password) {
       throw new Error(data.message || "Login failed");
     }
 
-    console.log("Success:", data);
+    return data;
   } catch (error) {
     console.error(error.message);
   }

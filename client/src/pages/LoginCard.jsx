@@ -1,45 +1,45 @@
 import styles from "./LoginCard.module.css";
 import { Link, Outlet } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import login from "../utility/login.js";
 
 export default function LoginCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submittedOnce, setSubmittedOnce] = useState(false); //to allow error message after submit
-  const [message, setMessage] = useState();
+  const [loginStatusMessage, setLoginStatusMessage] = useState(null);
 
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const passwordIsValid = password.length > 10;
 
-  function displayMessage(status, message) {
-    if (status === "success") {
-      setMassage({
-        status: "success",
-        text: message,
-      });
-    } else {
-      setMassage({
-        status: "fail",
-        text: message,
-      });
-    }
-    setTimeout(() => {
-      setMessage(null);
+  useEffect(() => {
+    console.log("useeffect running with message:", loginStatusMessage);
+    if (!loginStatusMessage) return;
+
+    const timeout = setTimeout(() => {
+      setLoginStatusMessage(null);
     }, 3000);
-  }
 
-  function handleSubmit(e) {
-    e.preventDefault(); //to prevent default behavior
-    setSubmittedOnce(true);
+    return () => clearTimeout(timeout);
+  }, [loginStatusMessage]);
 
-    if (!emailIsValid || !passwordIsValid) {
-      displayMessage("fail", "Incorrect email or password!!");
-      return;
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault(); //to prevent default behavior
+      setSubmittedOnce(true);
+      if (!emailIsValid || !passwordIsValid) {
+        return;
+      }
+      const formData = Object.fromEntries(new FormData(e.target));
+      const serverResponse = await login(formData.email, formData.password);
+      console.log(serverResponse);
+      setLoginStatusMessage({
+        status: serverResponse?.status,
+        text: serverResponse?.message,
+      });
+    } catch (e) {
+      console.error(e);
     }
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    console.log(data);
   }
 
   return (
@@ -49,11 +49,11 @@ export default function LoginCard() {
 
         <p>Sign in to continue to your workspace.</p>
 
-        {message && (
+        {loginStatusMessage && (
           <div
-            className={`${styles.loginStatusMessage} ${message.status === "success" ? styles.loginSuccessStyle : styles.loginFailStyle}`}
+            className={`${styles.loginStatusMessage} ${loginStatusMessage.status === "success" ? styles.loginSuccessStyle : styles.loginFailStyle}`}
           >
-            {message.text}
+            {loginStatusMessage.text}
           </div>
         )}
 
