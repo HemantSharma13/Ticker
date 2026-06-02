@@ -2,6 +2,7 @@ import styles from "./LoginCard.module.css";
 import { Link, Outlet } from "react-router";
 import { useEffect, useState } from "react";
 import login from "../utility/login.js";
+import Spinner from "../components/Spinner.jsx";
 
 export default function LoginCard() {
   const [email, setEmail] = useState("");
@@ -28,10 +29,10 @@ export default function LoginCard() {
     try {
       e.preventDefault(); //to prevent default behavior
       setSubmittedOnce(true);
-      setIsLoading(true);
       if (!emailIsValid || !passwordIsValid) {
         return;
       }
+      setIsLoading(true);
       const formData = Object.fromEntries(new FormData(e.target));
       const serverResponse = await login(formData.email, formData.password);
       console.log(serverResponse);
@@ -59,7 +60,6 @@ export default function LoginCard() {
             {loginStatusMessage.text}
           </div>
         )}
-
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
           {/*Field Email */}
           <div className={styles.inputGroup}>
@@ -100,7 +100,7 @@ export default function LoginCard() {
             className={styles.loginBtn}
             disabled={submittedOnce ? !emailIsValid || !passwordIsValid : false}
           >
-            Sign In
+            {isLoading ? <Spinner /> : "Sign In"}
           </button>
         </form>
 
