@@ -8,6 +8,7 @@ export default function LoginCard() {
   const [password, setPassword] = useState("");
   const [submittedOnce, setSubmittedOnce] = useState(false); //to allow error message after submit
   const [loginStatusMessage, setLoginStatusMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const passwordIsValid = password.length > 10;
@@ -27,6 +28,7 @@ export default function LoginCard() {
     try {
       e.preventDefault(); //to prevent default behavior
       setSubmittedOnce(true);
+      setIsLoading(true);
       if (!emailIsValid || !passwordIsValid) {
         return;
       }
@@ -37,6 +39,7 @@ export default function LoginCard() {
         status: serverResponse?.status,
         text: serverResponse?.message,
       });
+      setIsLoading(false);
     } catch (e) {
       console.error(e);
     }
