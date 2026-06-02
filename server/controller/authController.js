@@ -85,3 +85,70 @@ export const signup = async (req, res) => {
     });
   }
 };
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check for empty fields
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
+    }
+
+    // Find user
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    // Compare password
+    const passwordMatched = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatched) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    // Create JWT and send cookie
+    const token = createSendToken(user, 200, req, res);
+
+    res.status(200).json({
+      success: true,
+      message: "Logged in successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+      token,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export const logout = (req, res) => {
+  res.cookie("jwt", "", {
+    expires: new Date(0), // Expire immediately
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "Logged out successfully",
+  });
+};
