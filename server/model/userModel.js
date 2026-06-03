@@ -20,6 +20,19 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please enter a password"],
     minlength: [10, "Password must be at least 10 characters long"],
   },
+
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+
+  tasks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Task",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);
