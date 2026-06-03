@@ -8,22 +8,22 @@ export default function LoginCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submittedOnce, setSubmittedOnce] = useState(false); //to allow error message after submit
-  const [loginStatusMessage, setLoginStatusMessage] = useState(null);
+  const [serverResponse, setServerResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const passwordIsValid = password.length > 10;
 
   useEffect(() => {
-    console.log("useeffect running with message:", loginStatusMessage);
-    if (!loginStatusMessage) return;
+    console.log("useeffect running with message:", serverResponse);
+    if (!serverResponse) return;
 
     const timeout = setTimeout(() => {
-      setLoginStatusMessage(null);
+      setServerResponse(null);
     }, 3000);
 
     return () => clearTimeout(timeout);
-  }, [loginStatusMessage]);
+  }, [serverResponse]);
 
   async function handleSubmit(e) {
     try {
@@ -33,16 +33,14 @@ export default function LoginCard() {
         return;
       }
       setIsLoading(true);
-      const formData = Object.fromEntries(new FormData(e.target));
-      const serverResponse = await login(formData.email, formData.password);
-      console.log(serverResponse);
-      setLoginStatusMessage({
-        status: serverResponse?.status,
-        text: serverResponse?.message,
-      });
+      const response = await login(email, password);
+      console.log("Response variable is:", response);
+      setServerResponse(() => response);
       setIsLoading(false);
     } catch (e) {
       console.error(e);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -53,11 +51,11 @@ export default function LoginCard() {
 
         <p>Sign in to continue to your workspace.</p>
 
-        {loginStatusMessage && (
+        {serverResponse && (
           <div
-            className={`${styles.loginStatusMessage} ${loginStatusMessage.status === "success" ? styles.loginSuccessStyle : styles.loginFailStyle}`}
+            className={`${styles.serverResponseMessage} ${serverResponse.success ? styles.loginSuccessStyle : styles.loginFailStyle}`}
           >
-            {loginStatusMessage.text}
+            {serverResponse.message}
           </div>
         )}
         <form className={styles.form} onSubmit={handleSubmit} noValidate>

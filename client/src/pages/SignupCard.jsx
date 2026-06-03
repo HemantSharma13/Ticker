@@ -1,7 +1,42 @@
 import styles from "./SignupCard.module.css";
 import { Link } from "react-router";
+import { useState } from "react";
 
 export default function SignupCard() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [submittedOnce, setSubmittedOnce] = useState(false); //to allow error message after submit
+  const [loginStatusMessage, setLoginStatusMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const passwordIsValid = password.length > 10;
+  const passwordMatching = password === confirmPassword ? true : false;
+
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault(); //to prevent default behavior
+      setSubmittedOnce(true);
+
+      if (!emailIsValid || !passwordIsValid || !passwordIsMatching) {
+        return;
+      }
+      setIsLoading(true); //Activates Spinner
+
+      const formData = Object.fromEntries(new FormData(e.target));
+      const serverResponse = await login(formData.email, formData.password);
+      console.log(serverResponse);
+      setLoginStatusMessage({
+        status: serverResponse?.status,
+        text: serverResponse?.message,
+      });
+      setIsLoading(false); //Deactivates Spinner
+    } catch (e) {
+      console.error(e);
+    }
+  }
   return (
     <section className={styles.right}>
       <div className={styles.card}>
@@ -9,7 +44,7 @@ export default function SignupCard() {
 
         <p>Create your workspace and get started.</p>
 
-        <form className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label>Full Name</label>
             <input type="text" placeholder="Hemant Sharma" />

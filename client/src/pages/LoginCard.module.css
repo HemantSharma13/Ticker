@@ -98,7 +98,7 @@
     box-shadow 0.25s ease;
 }
 
-.card .loginStatusMessage {
+.card .serverResponseMessage {
   position: absolute;
   background-color: rgba(144, 238, 144, 50%);
   top: 5px;

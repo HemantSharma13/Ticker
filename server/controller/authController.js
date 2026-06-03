@@ -18,6 +18,8 @@ const createSendToken = (user, statusCode, req, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
+    secure: false, // localhost
+    sameSite: "lax",
   });
 
   return token;
@@ -32,6 +34,14 @@ export const signup = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
+      });
+    }
+
+    //Check passworld length : More then 10 characters
+    if (password.length < 10) {
+      return res.status(400).json({
+        success: false,
+        message: "Passwords should be more then 10 characters long",
       });
     }
 
@@ -54,7 +64,10 @@ export const signup = async (req, res) => {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, process.env.SALE_ROUNDS);
+    const hashedPassword = await bcrypt.hash(
+      password,
+      Number(process.env.SALE_ROUNDS),
+    );
 
     // Create user
     const user = await User.create({
@@ -89,7 +102,7 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log("The body from login is:", req.body);
     // Check for empty fields
     if (!email || !password) {
       return res.status(400).json({

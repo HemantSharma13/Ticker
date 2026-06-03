@@ -6,6 +6,8 @@ export default async function login(email, password) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
+
       body: JSON.stringify({
         email,
         password,
@@ -13,13 +15,11 @@ export default async function login(email, password) {
     });
 
     const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Login failed");
-    }
+    console.log("data from login function:", data);
 
     return data;
   } catch (error) {
-    console.error(error.message);
+    console.error("The error happening is:", error);
+    throw error;
   }
 }
