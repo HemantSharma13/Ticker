@@ -39,9 +39,9 @@ export default function LoginCard() {
       console.log("Response variable is:", response);
       setServerResponse(() => response);
       if (response?.success) {
+        setIsLoading(false);
         navigate("/app");
       }
-      setIsLoading(false);
     } catch (e) {
       console.error(e);
     } finally {

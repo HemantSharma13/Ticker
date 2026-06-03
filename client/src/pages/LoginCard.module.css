@@ -80,24 +80,6 @@
   bottom: -15px;
 }
 
-.loginBtn {
-  padding: 1rem;
-
-  border: none;
-  border-radius: 12px;
-
-  background: linear-gradient(135deg, #7c3aed, #9333ea);
-
-  color: white;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
 .card .serverResponseMessage {
   position: absolute;
   background-color: rgba(144, 238, 144, 50%);
@@ -114,6 +96,24 @@
 
 .card .loginFailStyle {
   background-color: rgba(255, 192, 203, 50%);
+}
+
+.loginBtn {
+  padding: 1rem;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+
+  color: white;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .loginBtn:hover {

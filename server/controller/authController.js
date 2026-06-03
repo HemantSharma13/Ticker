@@ -27,10 +27,10 @@ const createSendToken = (user, statusCode, req, res) => {
 
 export const signup = async (req, res) => {
   try {
-    const { name, email, password, confirm_password } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
 
     // Check for empty fields
-    if (!name || !email || !password || !confirm_password) {
+    if (!name || !email || !password || !confirmPassword) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
@@ -38,7 +38,7 @@ export const signup = async (req, res) => {
     }
 
     //Check passworld length : More then 10 characters
-    if (password.length < 10) {
+    if (password.length < 10 || confirmPassword.length < 10) {
       return res.status(400).json({
         success: false,
         message: "Passwords should be more then 10 characters long",
@@ -46,7 +46,7 @@ export const signup = async (req, res) => {
     }
 
     // Check password match
-    if (password !== confirm_password) {
+    if (password !== confirmPassword) {
       return res.status(400).json({
         success: false,
         message: "Passwords do not match",

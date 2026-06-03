@@ -24,6 +24,23 @@
   margin-bottom: 2rem;
 }
 
+.card .serverResponseMessage {
+  position: absolute;
+  background-color: rgba(144, 238, 144, 50%);
+  top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.card .loginSuccessStyle {
+  background-color: rgba(144, 238, 144, 50%);
+}
+
+.card .loginFailStyle {
+  background-color: rgba(255, 192, 203, 50%);
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -31,6 +48,7 @@
 }
 
 .inputGroup {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -58,6 +76,14 @@
   box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
 }
 
+.errorMessage {
+  position: absolute;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: red;
+  bottom: -15px;
+}
+
 .signupBtn {
   padding: 1rem;
 
@@ -80,6 +106,16 @@
   transform: translateY(-2px);
 
   box-shadow: 0 15px 30px rgba(124, 58, 237, 0.3);
+}
+
+.signupBtn:active {
+  transform: translateY(0);
+}
+
+.signupBtn:disabled {
+  background-color: #a2a2a2;
+  background-image: none;
+  cursor: not-allowed;
 }
 
 .terms {
