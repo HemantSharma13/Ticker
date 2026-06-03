@@ -3,6 +3,7 @@ import { Link, Outlet } from "react-router";
 import { useEffect, useState } from "react";
 import login from "../utility/login.js";
 import Spinner from "../components/Spinner.jsx";
+import { useNavigate } from "react-router";
 
 export default function LoginCard() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export default function LoginCard() {
   const [submittedOnce, setSubmittedOnce] = useState(false); //to allow error message after submit
   const [serverResponse, setServerResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const passwordIsValid = password.length > 10;
@@ -36,6 +38,9 @@ export default function LoginCard() {
       const response = await login(email, password);
       console.log("Response variable is:", response);
       setServerResponse(() => response);
+      if (response?.success) {
+        navigate("/app");
+      }
       setIsLoading(false);
     } catch (e) {
       console.error(e);
