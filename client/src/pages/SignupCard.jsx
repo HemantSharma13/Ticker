@@ -1,6 +1,7 @@
 import styles from "./SignupCard.module.css";
 import { Link } from "react-router";
 import { useState } from "react";
+import signup from "../utility/signup";
 
 export default function SignupCard() {
   const [name, setName] = useState("");
@@ -26,7 +27,7 @@ export default function SignupCard() {
       setIsLoading(true); //Activates Spinner
 
       const formData = Object.fromEntries(new FormData(e.target));
-      const serverResponse = await login(formData.email, formData.password);
+      const serverResponse = await signup(formData);
       console.log(serverResponse);
       setLoginStatusMessage({
         status: serverResponse?.status,
@@ -44,7 +45,7 @@ export default function SignupCard() {
 
         <p>Create your workspace and get started.</p>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <div className={styles.inputGroup}>
             <label>Full Name</label>
             <input type="text" placeholder="Hemant Sharma" />
