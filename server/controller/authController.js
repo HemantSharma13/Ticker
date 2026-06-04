@@ -3,6 +3,7 @@
 import User from "../model/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { response } from "express";
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -55,7 +56,6 @@ export const signup = async (req, res) => {
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
-
     if (existingUser) {
       return res.status(409).json({
         success: false,
@@ -183,7 +183,7 @@ export const protect = async (req, res, next) => {
 
     console.log("decoded value of token:", decoded);
 
-    // 3. Check if user still exists
+    // 3. Check if user still exists in database
     const currentUser = await User.findById(decoded.id);
 
     if (!currentUser) {
@@ -204,4 +204,13 @@ export const protect = async (req, res, next) => {
       message: "Invalid or expired token",
     });
   }
+};
+
+export const getMe = (req, res) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: req.user,
+    },
+  });
 };

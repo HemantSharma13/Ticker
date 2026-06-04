@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-  console.log("The request body is:", req.body);
+  console.log("The request.body property is:", req.body);
   next();
 });
 
