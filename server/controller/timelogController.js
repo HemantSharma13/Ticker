@@ -101,3 +101,37 @@ export const getAllTimeLogs = async (req, res) => {
     });
   }
 };
+
+export const getTaskTimeLogs = async (req, res) => {
+  try {
+    const task = await Task.findOne({
+      _id: req.params.taskId,
+      user: req.user._id,
+    });
+
+    if (!task) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Task not found",
+      });
+    }
+
+    const timeLogs = await TimeLog.find({
+      task: req.params.taskId,
+      user: req.user._id,
+    });
+
+    res.status(200).json({
+      status: "success",
+      results: timeLogs.length,
+      data: {
+        timeLogs,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
