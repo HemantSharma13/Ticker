@@ -5,6 +5,7 @@ export const startTimeLog = async (req, res) => {
   try {
     const { taskId } = req.body;
 
+    // 1. Verify task belongs to logged-in user
     const task = await Task.findOne({
       _id: taskId,
       user: req.user._id,
@@ -17,6 +18,20 @@ export const startTimeLog = async (req, res) => {
       });
     }
 
+    // 2. Check if user already has an active timer
+    const activeLog = await TimeLog.findOne({
+      user: req.user._id,
+      endTime: null,
+    });
+
+    if (activeLog) {
+      return res.status(400).json({
+        status: "fail",
+        message: "A timer is already running",
+      });
+    }
+
+    // 3. Create new timelog
     const timeLog = await TimeLog.create({
       task: taskId,
       user: req.user._id,
@@ -30,8 +45,8 @@ export const startTimeLog = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(400).json({
-      status: "fail",
+    res.status(500).json({
+      status: "error",
       message: err.message,
     });
   }
