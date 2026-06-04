@@ -36,3 +36,47 @@ export const startTimeLog = async (req, res) => {
     });
   }
 };
+
+export const stopTimeLog = async (req, res) => {
+  try {
+    const timeLog = await TimeLog.findOne({
+      _id: req.params.id,
+      user: req.user._id,
+    });
+
+    if (!timeLog) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Time log not found",
+      });
+    }
+
+    if (timeLog.endTime) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Timer already stopped",
+      });
+    }
+
+    const endTime = new Date();
+
+    const duration = Math.floor((endTime - timeLog.startTime) / 1000);
+
+    timeLog.endTime = endTime;
+    timeLog.duration = duration;
+
+    await timeLog.save();
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        timeLog,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
