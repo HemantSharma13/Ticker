@@ -80,3 +80,24 @@ export const stopTimeLog = async (req, res) => {
     });
   }
 };
+
+export const getAllTimeLogs = async (req, res) => {
+  try {
+    const timeLogs = await TimeLog.find({
+      user: req.user._id,
+    }).populate("task", "title status");
+
+    res.status(200).json({
+      status: "success",
+      results: timeLogs.length,
+      data: {
+        timeLogs,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
