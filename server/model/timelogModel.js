@@ -31,4 +31,4 @@ const timeLogSchema = new mongoose.Schema(
   },
 );
 
-export default mongoose.model("TimeLog", timeLogSchema);
+export default mongoose.model("Timelog", timeLogSchema);
