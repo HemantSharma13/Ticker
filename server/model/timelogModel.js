@@ -5,29 +5,30 @@ const timeLogSchema = new mongoose.Schema(
     task: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Task",
-      required: [true, "Task ID is required"],
+      required: true,
+    },
+
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
 
     startTime: {
       type: Date,
-      required: [true, "Start time is required"],
+      required: true,
     },
 
-    endTime: {
-      type: Date,
-    },
+    endTime: Date,
 
-    status: {
-      type: String,
-      enum: ["Pending", "In Progress", "Completed"],
-      default: "Pending",
+    duration: {
+      type: Number, // seconds
+      default: 0,
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const TimeLog = mongoose.model("TimeLog", timeLogSchema);
-
-export default TimeLog;
+export default mongoose.model("TimeLog", timeLogSchema);
