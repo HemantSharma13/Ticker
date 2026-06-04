@@ -135,3 +135,29 @@ export const getTaskTimeLogs = async (req, res) => {
     });
   }
 };
+
+export const deleteTimeLog = async (req, res) => {
+  try {
+    const timeLog = await TimeLog.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user._id,
+    });
+
+    if (!timeLog) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Time log not found",
+      });
+    }
+
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
