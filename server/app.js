@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("api/v1/auth", authRoutes);
-app.use("api/v1/tasks", taskRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/tasks", taskRoutes);
 
 export default app;
