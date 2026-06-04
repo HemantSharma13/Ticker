@@ -184,9 +184,7 @@ export const protect = async (req, res, next) => {
     console.log("decoded value of token:", decoded);
 
     // 3. Check if user still exists in database
-    const currentUser = await User.findById(decoded.id).select(
-      "-password -tasks",
-    );
+    const currentUser = await User.findById(decoded.id).select("-password");
 
     if (!currentUser) {
       return res.status(401).json({
