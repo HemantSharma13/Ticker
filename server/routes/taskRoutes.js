@@ -4,6 +4,17 @@ import * as taskController from "../controller/taskController.js";
 
 const router = express.Router();
 
-router.post("/", authController.protect, taskController.createTask);
+router.use(authController.protect);
+
+router
+  .route("/")
+  .post(taskController.createTask)
+  .get(taskController.getAllTasks);
+
+router
+  .route("/:id")
+  .get(taskController.getTask)
+  .patch(taskController.updateTask)
+  .delete(taskController.deleteTask);
 
 export default router;
