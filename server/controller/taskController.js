@@ -1,4 +1,5 @@
 import Task from "../model/taskModel.js";
+import { generateDescription } from "../utils/geminiService.js";
 
 export const createTask = async (req, res) => {
   if (!req.body.title) {
@@ -134,6 +135,33 @@ export const deleteTask = async (req, res) => {
       data: null,
     });
   } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
+
+export const generateTask = async (req, res) => {
+  try {
+    const { title } = req.body;
+
+    if (!title) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Title is required",
+      });
+    }
+
+    const generatedTask = await generateDescription(title);
+
+    res.status(200).json({
+      status: "success",
+      data: generatedTask,
+    });
+  } catch (err) {
+    console.error(err);
+
     res.status(500).json({
       status: "error",
       message: err.message,

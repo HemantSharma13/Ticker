@@ -1,11 +1,10 @@
-import app from "./app.js";
 import { configDotenv } from "dotenv";
-import mongoose from "mongoose";
-
 configDotenv({ path: "./config.env" }); //configuring dotenv
-console.log("The port is", process.env.SERVER_PORT_NUMBER);
-const port = process.env.SERVER_PORT_NUMBER || 3000;
+import mongoose from "mongoose";
+import app from "./app.js";
 
+const port = process.env.SERVER_PORT_NUMBER || 3000;
+console.log("Gemini Key at server:", process.env.GEMINI_API_KEY);
 mongoose
   .connect(
     process.env.MONGO_CONNECTION_STRING.replace(

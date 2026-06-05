@@ -19,6 +19,6 @@ router
   .delete(taskController.deleteTask);
 
 router.route("/:taskId/timelogs").get(timelogController.getTaskTimeLogs);
-// router.route("/generate").get(timelogController.generateTask);
+router.route("/generate").post(taskController.generateTask);
 
 export default router;
