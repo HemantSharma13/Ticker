@@ -4,6 +4,7 @@ import authRoutes from "./routes/authRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 import timelogRoutes from "./routes/timelogRoutes.js";
 import cookieParser from "cookie-parser";
+import summaryRoutes from "./routes/summaryRoutes.js";
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use((req, res, next) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/tasks", taskRoutes);
 app.use("/api/v1/timelogs", timelogRoutes);
+app.use("/api/v1/summary", summaryRoutes);
 
 export default app;
