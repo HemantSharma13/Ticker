@@ -1,8 +1,6 @@
 import express from "express";
-import { protect } from "../controllers/authController.js";
-import * as timelogController from "../controller/timelogController.js";
 import * as authController from "../controller/authController.js";
-
+import * as timelogController from "../controller/timelogController.js";
 const router = express.Router();
 
 router.use(authController.protect);

@@ -1,15 +1,16 @@
-import Timelog from "../model/timelogModel.js";
+import TimeLog from "../model/timelogModel.js";
 import Task from "../model/taskModel.js";
 
 export const startTimeLog = async (req, res) => {
   try {
     const { taskId } = req.body;
-
+    console.log("The task ID is:", taskId);
     // 1. Verify task belongs to logged-in user
     const task = await Task.findOne({
       _id: taskId,
       user: req.user._id,
     });
+    console.log("The task is:", task);
 
     if (!task) {
       return res.status(404).json({
@@ -47,7 +48,7 @@ export const startTimeLog = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       status: "error",
-      message: err.message,
+      message1: err.message,
     });
   }
 };
