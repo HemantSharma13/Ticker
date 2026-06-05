@@ -9,16 +9,20 @@ router.use(authController.protect);
 
 router
   .route("/")
-  .post(taskController.createTask)
-  .get(taskController.getAllTasks);
+  .post(authController.restrict("user"), taskController.createTask)
+  .get(authController.restrict("user"), taskController.getAllTasks);
 
 router
   .route("/:id")
-  .get(taskController.getTask)
-  .patch(taskController.updateTask)
-  .delete(taskController.deleteTask);
+  .get(authController.restrict("user"), taskController.getTask)
+  .patch(authController.restrict("user"), taskController.updateTask)
+  .delete(authController.restrict("user"), taskController.deleteTask);
 
-router.route("/:taskId/timelogs").get(timelogController.getTaskTimeLogs);
-router.route("/generate").post(taskController.generateTask);
+router
+  .route("/:taskId/timelogs")
+  .get(authController.restrict("user"), timelogController.getTaskTimeLogs);
+router
+  .route("/generate")
+  .post(authController.restrict("user"), taskController.generateTask);
 
 export default router;
