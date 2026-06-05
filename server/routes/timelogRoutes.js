@@ -10,7 +10,7 @@ router
   .post(timelogController.startTimeLog)
   .get(timelogController.getAllTimeLogs);
 
-router.patch("/:id/stop", timelogController.stopTimeLog);
+router.patch("/:timeLogId/stop", timelogController.stopTimeLog);
 router.delete("/:id", timelogController.deleteTimeLog);
 
 export default router;

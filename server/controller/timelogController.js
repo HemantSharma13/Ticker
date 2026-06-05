@@ -54,9 +54,10 @@ export const startTimeLog = async (req, res) => {
 };
 
 export const stopTimeLog = async (req, res) => {
+  console.log("The stopTimeLog's req.params.id is:", req.params.id);
   try {
     const timeLog = await TimeLog.findOne({
-      _id: req.params.id,
+      _id: req.params.timeLogId,
       user: req.user._id,
     });
 

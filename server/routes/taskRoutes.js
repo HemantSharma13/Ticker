@@ -1,6 +1,7 @@
 import express from "express";
 import * as authController from "../controller/authController.js";
 import * as taskController from "../controller/taskController.js";
+import * as timelogController from "../controller/timelogController.js";
 
 const router = express.Router();
 
@@ -16,5 +17,8 @@ router
   .get(taskController.getTask)
   .patch(taskController.updateTask)
   .delete(taskController.deleteTask);
+
+router.route("/:taskId/timelogs").get(timelogController.getTaskTimeLogs);
+// router.route("/generate").get(timelogController.generateTask);
 
 export default router;
